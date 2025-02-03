@@ -1,0 +1,12 @@
+{
+  "name": "taxonomy-search-explorer",
+  "version": "1.0.0",
+  "description": "Advanced search capabilities for WordPress categories and taxonomies",
+  "scripts": {
+    "build": "mkdir -p build && zip -r build/taxonomy-search-explorer-$npm_package_version.zip . -x '*.git*' 'node_modules/*' 'build/*' '.DS_Store' 'package.json' 'package-lock.json'",
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean"
+  },
+  "author": "Sirajum Mahdi",
+  "license": "GPL-2.0-or-later"
+}
