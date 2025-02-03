@@ -6,7 +6,7 @@
  * Version: 1.0.0
  * Author: Sirajum Mahdi
  * Author URI: https://sirajummahdi.com
- * Text Domain: taxonomy-search-explorer
+ * Text Domain: category-search-explorer
  * Requires at least: 5.0
  * Requires PHP: 7.2
  * License: GPL-2.0+

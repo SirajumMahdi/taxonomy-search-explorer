@@ -20,7 +20,7 @@ class Taxonomy_Search {
         if ($taxonomy_obj) {
             return $taxonomy_obj->labels->name ?: $taxonomy_obj->labels->singular_name;
         }
-        return __('Items', 'taxonomy-search-explorer');
+        return __('Items', 'category-search-explorer');
     }
 
     /**
@@ -32,27 +32,27 @@ class Taxonomy_Search {
         return array(
             'no_results' => sprintf(
                 /* translators: %s: Taxonomy name (e.g., Categories, Tags, Publishers) */
-                __('No %s found.', 'taxonomy-search-explorer'),
+                __('No %s found.', 'category-search-explorer'),
                 strtolower($tax_label)
             ),
             'invalid_taxonomy' => sprintf(
                 /* translators: %s: Taxonomy name */
-                __('Invalid %s type.', 'taxonomy-search-explorer'),
+                __('Invalid %s type.', 'category-search-explorer'),
                 strtolower($tax_label)
             ),
             'plugin_error' => sprintf(
                 /* translators: %s: Taxonomy name */
-                __('%s search functionality unavailable.', 'taxonomy-search-explorer'),
+                __('%s search functionality unavailable.', 'category-search-explorer'),
                 $tax_label
             ),
             'search_placeholder' => sprintf(
                 /* translators: %s: Taxonomy name */
-                __('Search %s...', 'taxonomy-search-explorer'),
+                __('Search %s...', 'category-search-explorer'),
                 strtolower($tax_label)
             ),
             'loading' => sprintf(
                 /* translators: %s: Taxonomy name */
-                __('Searching %s...', 'taxonomy-search-explorer'),
+                __('Searching %s...', 'category-search-explorer'),
                 strtolower($tax_label)
             )
         );

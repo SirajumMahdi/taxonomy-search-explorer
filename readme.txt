@@ -76,7 +76,7 @@ Category Search Explorer brings advanced search capabilities to all your WordPre
 
 == Installation ==
 
-1. Upload the plugin files to `/wp-content/plugins/taxonomy-search-explorer`
+1. Upload the plugin files to `/wp-content/plugins/category-search-explorer`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place the shortcode `[tcse_search]` in your posts, pages, or widgets
 
