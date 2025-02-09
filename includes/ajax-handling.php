@@ -5,12 +5,12 @@ if (!defined('ABSPATH')) {
 }
 
 // AJAX callbacks for search
-add_action('wp_ajax_taxonomy_search_autocomplete', 'taxonomy_search_autocomplete_callback');
-add_action('wp_ajax_nopriv_taxonomy_search_autocomplete', 'taxonomy_search_autocomplete_callback');
+add_action('wp_ajax_catex_search_autocomplete', 'catex_ajax_autocomplete_callback');
+add_action('wp_ajax_nopriv_catex_search_autocomplete', 'catex_ajax_autocomplete_callback');
 
-function taxonomy_search_autocomplete_callback() {
+function catex_ajax_autocomplete_callback() {
     // Check nonce
-    if (!check_ajax_referer('taxonomy_search_nonce', 'nonce', false)) {
+    if (!check_ajax_referer('catex_search_nonce', 'nonce', false)) {
         wp_send_json_error('Invalid nonce');
     }
 
@@ -35,7 +35,7 @@ function taxonomy_search_autocomplete_callback() {
 
     $terms = get_terms($args);
 
-    // Handle errors in fetching terms
+    // Handle errors
     if (is_wp_error($terms)) {
         wp_send_json_error($terms->get_error_message());
     }

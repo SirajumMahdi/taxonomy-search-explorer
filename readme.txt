@@ -66,19 +66,19 @@ Category Search Explorer brings advanced search capabilities to all your WordPre
 = Implementation Examples =
 
 **Basic Category Search**
-`[tcse_search taxonomy="category"]`
+`[catex_search taxonomy="category"]`
 
 **WooCommerce Product Categories**
-`[tcse_search taxonomy="product_cat"]`
+`[catex_search taxonomy="product_cat"]`
 
 **Custom Category Search**
-`[tcse_search taxonomy="your_custom_taxonomy"]`
+`[catex_search taxonomy="your_custom_taxonomy"]`
 
 == Installation ==
 
 1. Upload the plugin files to `/wp-content/plugins/category-search-explorer`
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place the shortcode `[tcse_search]` in your posts, pages, or widgets
+3. Place the shortcode `[catex_search]` in your posts, pages, or widgets
 
 == Frequently Asked Questions ==
 
@@ -98,14 +98,6 @@ The plugin includes customizable CSS classes and follows WordPress styling conve
 
 Yes, the plugin is fully translatable and includes English as the default language.
 
-== Screenshots ==
-
-1. Default category search interface
-2. WooCommerce product category search
-3. Custom category search example
-4. Mobile responsive view
-5. Admin settings page
-
 == Changelog ==
 
 = 1.0.0 =
@@ -121,22 +113,22 @@ Initial release
 = Basic Implementation =
 
 Add category search to any page or post:
-`[tcse_search]`
+`[catex_search]`
 
 = WooCommerce Product Categories =
 
 Add product category search:
-`[tcse_search taxonomy="product_cat"]`
+`[catex_search taxonomy="product_cat"]`
 
 = Custom Number of Results =
 
 Show 20 results per page:
-`[tcse_search terms_per_page="20"]`
+`[catex_search terms_per_page="20"]`
 
 = Advanced Configuration =
 
 Full configuration example:
-`[tcse_search taxonomy="custom_taxonomy" terms_per_page="15" show_terms="always"]`
+`[catex_search taxonomy="custom_taxonomy" terms_per_page="15" show_terms="always"]`
 
 == Development ==
 

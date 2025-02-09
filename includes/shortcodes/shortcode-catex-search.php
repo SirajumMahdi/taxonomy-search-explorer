@@ -5,38 +5,38 @@ if (!defined('ABSPATH')) {
 }
 
 // Register shortcode
-add_shortcode('tcse_search', 'taxonomy_search_shortcode');
+add_shortcode('catex_search', 'catex_search_shortcode');
 
-function taxonomy_search_shortcode($atts) {
+function catex_search_shortcode($atts) {
     // Start output buffering
     ob_start();
 
     // Initialize plugin class
-    $plugin = new Taxonomy_Search();
+    $plugin = new CATEX_Search();
 
     // Shortcode attributes
     $atts = shortcode_atts(array(
         'taxonomy'       => 'category',
         'terms_per_page' => 10,
-        'show_terms'     => 'always', // Options: 'always', 'search', 'never'
+        'show_terms'     => 'always',
     ), $atts);
 
-    // Get messages for this taxonomy
+    // Get messages
     $messages = $plugin->get_messages($atts['taxonomy']);
 
     // Get current search query
     $search_query = '';
-    if (isset($_GET['term_search']) && isset($_GET['taxonomy_search_nonce'])) {
-        if (wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['taxonomy_search_nonce'])), 'taxonomy_search_nonce')) {
+    if (isset($_GET['term_search']) && isset($_GET['catex_search_nonce'])) {
+        if (wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['catex_search_nonce'])), 'catex_search_nonce')) {
             $search_query = sanitize_text_field(wp_unslash($_GET['term_search']));
         }
     }
 
     // Display search form
     ?>
-    <div class="taxonomy-search-form">
+    <div class="catex-search-form">
         <form method="get">
-            <?php wp_nonce_field('taxonomy_search_nonce', 'taxonomy_search_nonce'); ?>
+            <?php wp_nonce_field('catex_search_nonce', 'catex_search_nonce'); ?>
             <input 
                 type="search" 
                 id="term_search" 
@@ -45,11 +45,11 @@ function taxonomy_search_shortcode($atts) {
                 value="<?php echo esc_attr($search_query); ?>"
                 data-taxonomy="<?php echo esc_attr($atts['taxonomy']); ?>"
             />
-            <button type="submit" class="taxonomy-search-submit">
-                <span>Search</span>
+            <button type="submit" class="catex-search-submit">
+                <span><?php esc_html_e('Search', 'category-search-explorer'); ?></span>
             </button>
         </form>
-        <div class="autocomplete-results" id="taxonomy-search-autocomplete" style="display: none;"></div>
+        <div class="autocomplete-results" id="catex-search-autocomplete" style="display: none;"></div>
     </div>
     <?php
 
@@ -69,7 +69,7 @@ function taxonomy_search_shortcode($atts) {
 
     // Display results if needed
     if ($should_show_terms) {
-        if (!class_exists('Taxonomy_Search')) {
+        if (!class_exists('CATEX_Search')) {
             echo '<p>' . esc_html($messages['plugin_error']) . '</p>';
         } else {
             $plugin->display_search_results($atts['taxonomy'], $atts['terms_per_page'], $search_query);

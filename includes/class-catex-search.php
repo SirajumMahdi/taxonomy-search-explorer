@@ -2,14 +2,14 @@
 /**
  * Main plugin class
  */
-class Taxonomy_Search {
+class CATEX_Search {
 
     public function __construct() {
         // Enqueue assets
         add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
 
         // Include the AJAX handling file
-        require_once plugin_dir_path(__FILE__) . './ajax-handling.php';
+        require_once CATEX_PLUGIN_DIR . 'includes/ajax-handling.php';
     }
 
     /**
@@ -31,7 +31,7 @@ class Taxonomy_Search {
         
         return array(
             'no_results' => sprintf(
-                /* translators: %s: Taxonomy name (e.g., Categories, Tags, Publishers) */
+                /* translators: %s: Taxonomy name */
                 __('No %s found.', 'category-search-explorer'),
                 strtolower($tax_label)
             ),
@@ -67,7 +67,7 @@ class Taxonomy_Search {
         
         // Validate and sanitize inputs
         $taxonomy = sanitize_key($taxonomy);
-        $terms_per_page = absint($terms_per_page) ?: 10; // Default to 10 if invalid
+        $terms_per_page = absint($terms_per_page) ?: 10;
         $search_query = sanitize_text_field($search_query);
 
         // Verify taxonomy exists
@@ -92,7 +92,6 @@ class Taxonomy_Search {
             'order'       => 'ASC',
         );
 
-        // Add search parameter only if there's a search query
         if (!empty($search_query)) {
             $args['search'] = $search_query;
         }
@@ -100,25 +99,24 @@ class Taxonomy_Search {
         // Get terms
         $terms = get_terms($args);
         
-        // Get total terms count with the same search criteria
+        // Get total terms count
         $total_terms_args = array(
             'taxonomy'   => $taxonomy,
             'hide_empty' => false,
             'search'     => $search_query,
-            'fields'     => 'count', // Retrieve only the count
+            'fields'     => 'count',
         );
         $total_terms = get_terms($total_terms_args);
 
-
         // Display results
         if (!is_wp_error($terms) && !empty($terms)) {
-            echo '<div class="tax-lists">';
+            echo '<div class="catex-lists">';
             foreach ($terms as $term) {
                 $term_name = $term->name;
                 $term_url = get_term_link($term);
                 
                 if (!is_wp_error($term_url)) {
-                    echo '<div class="tax-item">';
+                    echo '<div class="catex-item">';
                     echo '<div class="term-name">';
                     echo '<h4><a href="' . esc_url($term_url) . '">' . esc_html($term_name) . '</a></h4>';
                     echo '</div>';
@@ -155,29 +153,29 @@ class Taxonomy_Search {
     public function enqueue_assets() {
         // Enqueue CSS
         wp_enqueue_style(
-            'taxonomy-search-style',
-            plugin_dir_url(__FILE__) . '../assets/css/style.css',
+            'catex-style',
+            CATEX_PLUGIN_URL . 'assets/css/style.css',
             array(),
-            '1.0.0'
+            CATEX_VERSION
         );
 
         // Enqueue JS
         wp_enqueue_script(
-            'taxonomy-search-script',
-            plugin_dir_url(__FILE__) . '../assets/js/script.js',
+            'catex-script',
+            CATEX_PLUGIN_URL . 'assets/js/script.js',
             array('jquery'),
-            '1.0.0',
+            CATEX_VERSION,
             true
         );
 
-        // Localize script with messages
-        $default_messages = $this->get_messages('category'); // Default messages
+        // Localize script
+        $default_messages = $this->get_messages('category');
         wp_localize_script(
-            'taxonomy-search-script',
-            'taxonomySearch',
+            'catex-script',
+            'catexSearch',
             array(
                 'ajaxurl' => admin_url('admin-ajax.php'),
-                'nonce'   => wp_create_nonce('taxonomy_search_nonce'),
+                'nonce'   => wp_create_nonce('catex_search_nonce'),
                 'messages' => $default_messages
             )
         );
